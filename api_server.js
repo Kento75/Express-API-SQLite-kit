@@ -2,6 +2,14 @@ const express = require("express");
 const app = express();
 const bodyParser = require("body-parser");
 
+// クロスドメインリクエストの許可
+const cors = require('cors');
+app.use(cors());
+
+// jsonのパーサーを実装
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }))
+
 /* DB設定の実装 */
 const database = require('./app/config/dbconfig');
 

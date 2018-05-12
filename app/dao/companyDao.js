@@ -17,10 +17,15 @@ class CompanyDao {
      * @return entity
      */
     findById(company_code) {
-        let sqlRequest = "SELECT company_code, company_name, address, mail FROM company WHERE company=$company_code";
+        let sqlRequest = "SELECT company_code, company_name, address, mail FROM company WHERE company_code like '%'||$company_code||'%' ";
         let sqlParams = {$company_code: company_code};
-        return this.common.findOne(sqlRequest, sqlParams).then(row =>
-            new Company(row.company_code, row.company_name, row.address, row.mail));
+        return this.common.findOne(sqlRequest, sqlParams).then(rows =>{
+            let companies = [];
+            for (const row of rows) {
+                companies.push(new Company(row.company_code, row.company_name, row.address, row.mail));
+            }
+            return companies;
+        });
     };
 
     /**
@@ -114,7 +119,7 @@ class CompanyDao {
     };
 
     /**
-     * 存在チェック
+     * 存在チェック(部分一致)
      * @params company_code
      * returns true or false
      */

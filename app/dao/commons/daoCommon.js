@@ -45,8 +45,7 @@ class Common {
                         new DaoError(21, "Entity not found")
                     );
                 } else {
-                    let row = rows[0];
-                    resolve(row);
+                    resolve(rows);
                 }
             })
         });

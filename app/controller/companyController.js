@@ -24,6 +24,7 @@ class CompanyController {
       let company_code = req.method === 'POST'
         ? req.body.company_code
         : req.params.company_code;
+          console.log(req.body.company_code)
         this.companyDao.findById(company_code)
             .then(this.common.findSuccess(res))
             .catch(this.common.findError(res));
