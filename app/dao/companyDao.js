@@ -1,11 +1,9 @@
-/* Load Driver entity */
-const Driver = require('../model/company');
+const Company = require('../model/company');
 
-/* Load DAO Common functions */
 const daoCommon = require('./commons/daoCommon');
 
 /**
- * Driver Data Access Object
+ * 会社マスター　Dao
  */
 class CompanyDao {
 
@@ -14,8 +12,8 @@ class CompanyDao {
     }
 
     /**
-     * Tries to find an entity using its Id / Primary Key
-     * @params id
+     * 検索(pk:会社コード)
+     * @params company_code
      * @return entity
      */
     findById(company_code) {
@@ -26,7 +24,7 @@ class CompanyDao {
     };
 
     /**
-     * Finds all entities.
+     * 検索(全件)
      * @return all entities
      */
     findAll() {
@@ -41,7 +39,7 @@ class CompanyDao {
     };
 
     /**
-     * Counts all the records present in the database
+     * 件数(全件)
      * @return count
      */
     countAll() {
@@ -50,9 +48,9 @@ class CompanyDao {
     };
 
     /**
-     * Updates the given entity in the database
-     * @params Driver
-     * @return true if the entity has been updated, false if not found and not updated
+     * 更新(pk:会社コード)
+     * @params Company
+     * @return true or false
      */
     update(Company) {
         let sqlRequest = "UPDATE company SET " +
@@ -71,9 +69,9 @@ class CompanyDao {
     };
 
     /**
-     * Creates the given entity in the database
-     * @params Driver
-     * returns database insertion status
+     * 新規登録(会社コードなし)
+     * @params Company
+     * returns status
      */
     create(Company) {
         let sqlRequest = "INSERT into company (company_code, company_name, address, mail) " +
@@ -88,9 +86,9 @@ class CompanyDao {
     };
 
     /**
-     * Creates the given entity with a provided in the database
-     * @params Driver
-     * returns database insertion status
+     * 新規登録(pk:会社コード)
+     * @params Company
+     * returns status
      */
     createWithId(Company) {
         let sqlRequest = "INSERT into company (company_code, company_name, address, mail) " +
@@ -105,9 +103,9 @@ class CompanyDao {
     };
 
     /**
-     * Deletes an entity using its Id / Primary Key
-     * @params id
-     * returns database deletion status
+     * 削除(pk:会社コード)
+     * @params company_code
+     * returns status
      */
     deleteById(company_code) {
         let sqlRequest = "DELETE FROM company WHERE company_code=$company_code";
@@ -116,9 +114,9 @@ class CompanyDao {
     };
 
     /**
-     * Returns true if an entity exists with the given Id / Primary Key
-     * @params id
-     * returns database entry existence status (true/false)
+     * 存在チェック
+     * @params company_code
+     * returns true or false
      */
     exists(company_code) {
         let sqlRequest = "SELECT (count(*) > 0) as found FROM company WHERE company_code like '%'||$company_code||'%' ";
