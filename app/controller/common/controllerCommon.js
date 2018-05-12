@@ -1,5 +1,5 @@
 /**
- * Controllers Common functions
+ * レスポンスコマンド一覧
  */
 class controllerCommon {
 

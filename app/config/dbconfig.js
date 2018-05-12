@@ -1,15 +1,15 @@
-/* Load modules */
 let sqlite3 = require('sqlite3').verbose();
 
 /*
- * Database configuration
+ * データベース設定
  */
 
-/* Load database file (Creates file if not exists) */
+/* DBをロード */
 let db = new sqlite3.Database('./sqlite.db');
 
-/* Init car and driver tables if they don't exist */
+/* テーブルが存在しない場合は作成 */
 let init = function () {
+    // carテーブル
     db.run("CREATE TABLE if not exists car (" +
         "id INTEGER PRIMARY KEY AUTOINCREMENT," +
         " maker TEXT," +
@@ -18,6 +18,7 @@ let init = function () {
         " driver INT" +
         ")");
 
+    // driverテーブル
     db.run("CREATE TABLE if not exists driver (" +
         "id INTEGER PRIMARY KEY AUTOINCREMENT," +
         " firstName TEXT," +
@@ -25,6 +26,7 @@ let init = function () {
         " car INT" +
         ")");
 
+    // 会社マスタテーブル
     db.run("CREATE TABLE if not exists company (" +
         "company_code TEXT," +
         " company_name TEXT," +

@@ -63,7 +63,7 @@ class CompanyController {
         company.address = req.body.address;
         company.mail = req.body.mail;
 
-        return this.companyDao.update(car)
+        return this.companyDao.update(company)
             .then(this.common.editSuccess(res))
             .catch(this.common.serverError(res));
     };
@@ -83,12 +83,12 @@ class CompanyController {
         company.mail = req.body.mail;
 
         if (req.body.company_code) {
-            return this.companyDao.createWithId(car)
+            return this.companyDao.createWithId(company)
                 .then(this.common.editSuccess(res))
                 .catch(this.common.serverError(res));
         }
         else {
-            return this.companyDao.create(car)
+            return this.companyDao.create(company)
                 .then(this.common.editSuccess(res))
                 .catch(this.common.serverError(res));
         }
