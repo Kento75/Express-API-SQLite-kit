@@ -1,14 +1,12 @@
-/* Load Car Data Access Object */
 const CompanyDao = require('../dao/companyDao');
 
-/* Load Controller Common function */
+/* コマンド一覧を実装 */
 const ControllerCommon = require('./common/controllerCommon');
 
-/* Load Car entity */
 const Company = require('../model/company');
 
 /**
- * Car Controller
+ * 会社マスタコントローラー
  */
 class CompanyController {
 
@@ -18,20 +16,21 @@ class CompanyController {
     }
 
     /**
-     * Tries to find an entity using its Id / Primary Key
+     * 検索(pk:会社コード)
      * @params req, res
      * @return entity
      */
     findById(req, res) {
-        let id = req.params.id;
-
-        this.companyDao.findById(id)
+      let company_code = req.method === 'POST'
+        ? req.body.company_code
+        : req.params.company_code;
+        this.companyDao.findById(company_code)
             .then(this.common.findSuccess(res))
             .catch(this.common.findError(res));
     };
 
     /**
-     * Finds all entities.
+     * 全件検索
      * @return all entities
      */
     findAll(res) {
@@ -41,7 +40,7 @@ class CompanyController {
     };
 
     /**
-     * Counts all the records present in the database
+     * 全件合計
      * @return count
      */
     countAll(res) {
@@ -52,9 +51,9 @@ class CompanyController {
     };
 
     /**
-     * Updates the given entity in the database
+     * 更新(pk:会社コード)
      * @params req, res
-     * @return true if the entity has been updated, false if not found and not updated
+     * @return true or false
      */
     update(req, res) {
         let company = new Company();
@@ -69,9 +68,9 @@ class CompanyController {
     };
 
     /**
-     * Creates the given entity in the database
+     * 新規登録
      * @params req, res
-     * returns database insertion status
+     * returns status
      */
     create(req, res) {
         let company = new Company();
@@ -96,9 +95,9 @@ class CompanyController {
     };
 
     /**
-     * Deletes an entity using its Id / Primary Key
+     * 削除(pk:会社コード)
      * @params req, res
-     * returns database deletion status
+     * returns status
      */
     deleteById(req, res) {
         let company_code = req.params.company_code;
@@ -109,9 +108,9 @@ class CompanyController {
     };
 
     /**
-     * Returns true if an entity exists with the given Id / Primary Key
+     * 存在チェック(pk:会社コード)
      * @params req, res
-     * @return
+     * @return true or false
      */
     exists(req, res) {
         let company_code = req.params.company_code;
