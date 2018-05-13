@@ -36,10 +36,6 @@ router.post('/find', function (req, res) {
     companyController.findById(req, res);
 });
 
-router.post('/create', function (req, res) {
-    companyController.create(req, res);
-});
-
 // DELETE
 router.delete('/:company_code', function (req, res) {
     companyController.deleteById(req, res);
